@@ -578,7 +578,7 @@ class Bomber {
                     }
                 }
 
-               else if (matrix[newY][newX] == 5) {
+                else if (matrix[newY][newX] == 5) {
                     for (var i in hunterArr) {
                         if (newX == hunterArr[i].x && newY == hunterArr[i].y) {
                             matrix[newY][newX] = 0;
