@@ -69,6 +69,9 @@ class Xotaker extends Base {
 
         var emptyCells = this.chooseCell(1);
 
+        console.log(emptyCells)
+        noLoop()
+
         var newCell = random(emptyCells);
 
         //console.log(emptyCells);
@@ -78,21 +81,22 @@ class Xotaker extends Base {
             matrix[this.y][this.x] = 0;
             matrix[newY][newX] = this.index;
 
+
             for (var i in grassArr) {
                 if (this.x == grassArr[i].x && this.y == grassArr[i].y) {
-                    matrix[this.y][this.x] = 0;
                     grassArr.splice(i, 1);
+                    break;
                 }
             }
             this.x = newX;
             this.y = newY;
             this.energ++;
             if (this.energ >= 10) {
-                this.mu();
+                //this.mu();
             }
         }
         else {
-            this.move();
+            //this.move();
         }
     }
 }

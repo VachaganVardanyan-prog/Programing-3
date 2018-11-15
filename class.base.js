@@ -29,6 +29,7 @@ class Base {
     }
 
     chooseCell(character) {
+        this.getNewCoordinates()
         var found = [];
         for (var i in this.directions) {
             var x = this.directions[i][0];
@@ -41,5 +42,21 @@ class Base {
         }
         return found;
     }
-
+    chooseCellmul(arr) {
+        this.getNewCoordinates()
+        var found = [];
+        var a = arr;
+        for (var i in this.directions) {
+            var x = this.directions[i][0];
+            var y = this.directions[i][1];
+            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
+                for (var i = 0; i < a.length; i++) {
+                    if (matrix[y][x] == a[i]) {
+                        found.push([x, y]);
+                    }
+                }
+            }
+        }
+        return found;
+    }
 }
