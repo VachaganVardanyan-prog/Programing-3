@@ -69,8 +69,8 @@ class Xotaker extends Base {
 
         var emptyCells = this.chooseCell(1);
 
-        console.log(emptyCells)
-        noLoop()
+        // console.log(emptyCells)
+        //noLoop()
 
         var newCell = random(emptyCells);
 
@@ -92,11 +92,11 @@ class Xotaker extends Base {
             this.y = newY;
             this.energ++;
             if (this.energ >= 10) {
-                //this.mu();
+                this.mu();
             }
         }
         else {
-            //this.move();
+            this.move();
         }
     }
 }

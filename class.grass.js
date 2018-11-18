@@ -4,8 +4,8 @@ class Grass extends Base {
 
     }
 
-    mul() {
-        this.multiply++;
+    mul(ar) {
+        this.multiply+=ar;
         var emptyCells = this.chooseCell(0);
         var newCell = random(emptyCells);
         //console.log(grassArr)
@@ -13,7 +13,7 @@ class Grass extends Base {
         if (newCell && this.multiply >= 8) {
             var newX = newCell[0];
             var newY = newCell[1];
-            console.log(this.index)
+           // console.log(this.index)
             matrix[newY][newX] = this.index;
 
             var newGrass = new Grass(newX, newY, this.index);
@@ -21,6 +21,9 @@ class Grass extends Base {
             this.multiply = 0;
         }
     }
+
+   
+
 
 
 }

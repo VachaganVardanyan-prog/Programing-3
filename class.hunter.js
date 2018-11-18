@@ -133,7 +133,7 @@ class Hunter extends Base {
 
 
             this.energ--;
-            console.log(this.energ);
+            //console.log(this.energ);
             if (this.energ <= 0) {
                 this.mull();
             }

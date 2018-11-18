@@ -31,31 +31,41 @@ class Amenaker extends Base {
             matrix[this.y][this.x] = 0;
             if (matrix[newCell[1]][newCell[0]] == 3) {
                 for (var i in gishatichArr) {
-                    gishatichArr.splice(i, 1);
-                    this.energy++;
-                    break;
+                    if (this.x == gishatichArr[i].x && this.y == gishatichArr[i].y) {
+                        matrix[this.y][this.x] = 0;
+                        gishatichArr.splice(i, 1);
+                        break;
+                    }
                 }
             }
             else if (matrix[newCell[1]][newCell[0]] == 2) {
                 for (var i in xotakerArr) {
-                    xotakerArr.splice(i, 1);
-                    this.energy++;
-                    break;
+                    if (this.x == xotakerArr[i].x && this.y == xotakerArr[i].y) {
+                        matrix[this.y][this.x] = 0;
+                        xotakerArr.splice(i, 1);
+                        break;
+                    }
                 }
             }
             else if (matrix[newCell[1]][newCell[0]] == 1) {
                 for (var i in grassArr) {
-                    grassArr.splice(i, 1);
-                    this.energy++;
-                    break;
+                    if (this.x == grassArr[i].x && this.y == grassArr[i].y) {
+                        matrix[this.y][this.x] = 0;
+                        grassArr.splice(i, 1);
+                        break;
+                    }
+
                 }
             }
 
             else if (matrix[newCell[1]][newCell[0]] == 4) {
                 for (var i in bomberArr) {
-                    bomberArr.splice(i, 1);
-                    this.energy++;
-                    break;
+                    if (this.x == bomberArr[i].x && this.y == bomberArr[i].y) {
+                        matrix[this.y][this.x] = 0;
+                        bomberArr.splice(i, 1);
+                        break;
+                    }
+ 
                 }
             }
             matrix[newCell[1]][newCell[0]] = 6;

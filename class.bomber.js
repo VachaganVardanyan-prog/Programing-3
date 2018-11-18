@@ -83,7 +83,7 @@ class Bomber extends Base {
 
         //console.log(emptyCells);
         if (emptyCells.length > 0) {
-            console.log("dasd");
+          //  console.log("dasd");
             for (var i in emptyCells) {
                 var newX = emptyCells[i][0];
                 var newY = emptyCells[i][1];
