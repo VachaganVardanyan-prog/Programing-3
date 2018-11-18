@@ -34,21 +34,22 @@ function setup() {
     }
 
 
-    //      matrix = [ 
-    //         [0,0,0,0,0,0,0,2,2,1],
-    //         [0,0,0,0,0,0,0,2,2,1],
-    //         [0,0,0,0,0,0,0,2,2,1],
-    //         [0,0,0,0,0,0,0,2,2,1],
-    //         [0,0,0,0,0,0,0,2,2,1],
-    //         [0,0,0,0,0,0,0,2,2,1],
-    //         [0,0,0,0,0,0,0,2,2,1],
-    //         [0,0,0,0,0,0,0,2,2,1],
-    //         [0,0,0,0,0,0,0,2,2,1],
-    //         [0,0,0,0,0,0,0,2,2,1]
-    //    ]
+//      matrix = [ 
+//         [0,0,0,0,0,0,0,0,0,0],
+//         [0,0,0,0,0,0,0,3,0,0],
+//         [0,0,2,0,0,2,3,3,0,0],
+//         [0,0,0,0,0,0,3,3,3,0],
+//         [0,0,0,0,0,3,3,3,3,0],
+//         [0,0,0,0,0,3,3,3,0,0],
+//         [0,0,2,0,0,0,0,0,0,0],
+//         [0,0,0,0,0,0,0,0,0,0],
+//         [0,0,0,0,0,0,0,0,0,0],
+//         [0,0,0,0,0,0,0,0,0,0]
+//    ]
 
     createCanvas(matrix[0].length * side, matrix.length * side);
     background('#acacac');
+    
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 1) {
@@ -84,7 +85,7 @@ function setup() {
 }
 
 function draw() {
-
+    
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 1) {
@@ -123,14 +124,23 @@ function draw() {
 
     drawmatrix();
     for (var i in grassArr) {
-        if (exan != "ՁՄԵՌ") {
+        if (exan == "ՁՄԵՌ") {
         grassArr[i].mul(0);
        
     }
-   
+    else if (exan == "ԳԱՐՈՒՆ"){
+        grassArr[i].mul(3);
+    }
+    else if (exan == "ԱՄԱՌ"){
+        grassArr[i].mul(2);
+    }
+    else if (exan == "ԱՇՈՒՆ"){
+        grassArr[i].mul(1);
+    }
 
         
     }
+    
     for (var i in xotakerArr) {
         xotakerArr[i].eat();
         // xotakerArr[i].mu();
@@ -139,15 +149,44 @@ function draw() {
 
     for (var i in gishatichArr) {
         gishatichArr[i].eat();
+        //gishatichArr[i].die();
+       // gishatichArr[i].move();
     }
     for (var i in hunterArr) {
         hunterArr[i].eat();
     }
     for (var i in bomberArr) {
-        bomberArr[i].move();
+        if (exan == "ՁՄԵՌ") {
+            //bomberArr[i].move();
+        }
+        else if (exan == "ԳԱՐՈՒՆ"){
+            bomberArr[i].move();
+        }
+        else if (exan == "ԱՄԱՌ"){
+            bomberArr[i].move();
+        }
+        else if (exan == "ԱՇՈՒՆ"){
+            bomberArr[i].move();
+        }
+        
     }
     for (var i in amenakerArr) {
-        amenakerArr[i].eat();
+        
+         if(exan == "ՁՄԵՌ") {
+            amenakerArr[i].eat();
+        }
+
+        else if (exan == "ԳԱՐՈՒՆ"){
+            amenakerArr[i].eat();
+        }
+
+        else if (exan == "ԱՄԱՌ"){
+            //amenakerArr[i].eat();
+        }
+        
+        else if (exan == "ԱՇՈՒՆ"){
+            amenakerArr[i].eat();
+        }
     }
 
 
@@ -184,7 +223,7 @@ function drawmatrix() {
                 }
 
                 else if (matrix[y][x] == 4) {
-                    fill("black");
+                    fill("blue");
                 }
                 else if (matrix[y][x] == 5) {
                     fill("#FF8300");
@@ -236,7 +275,7 @@ function drawmatrix() {
 
                 }
                 else if (matrix[y][x] == 0) {
-                    fill("#ffff1a");
+                    fill("green");
 
                 }
                 else if (matrix[y][x] == 2) {
@@ -276,21 +315,21 @@ function drawmatrix() {
                 }
                 else if (matrix[y][x] == 2) {
 
-                    fill("yellow");
+                    fill("#FFEFDB");
 
                 }
                 else if (matrix[y][x] == 6) {
                     fill("red");
                 }
                 else if (matrix[y][x] == 3) {
-                    fill("#802b00");
+                    fill("#ffdbdb");
                 }
 
                 else if (matrix[y][x] == 4) {
                     fill("black");
                 }
                 else if (matrix[y][x] == 5) {
-                    fill("#FF8300");
+                    fill("#331A00");
                 }
                 exan = "ԱՇՈՒՆ";
                 p.innerText = "ԱՇՈՒՆ";

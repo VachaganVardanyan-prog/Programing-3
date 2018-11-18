@@ -66,7 +66,13 @@ class Xotaker extends Base {
 
     eat() {
 
+   if(exan == "ԳԱՐՈՒՆ"){
+      var  mp = 5;
 
+}
+else if(exan == "ԱՄԱՌ") {
+   var mp = 10
+}
         var emptyCells = this.chooseCell(1);
 
         // console.log(emptyCells)
@@ -91,7 +97,7 @@ class Xotaker extends Base {
             this.x = newX;
             this.y = newY;
             this.energ++;
-            if (this.energ >= 10) {
+            if (this.energ >= mp) {
                 this.mu();
             }
         }
