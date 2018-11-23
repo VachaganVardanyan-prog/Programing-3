@@ -16,8 +16,11 @@ var xotakerArr = [];
 var gishatichArr = [];
 var hunterArr = [];
 var bomberArr = [];
+var dinoArr = [];
 var amenakerArr = [];
 var exan;
+var socket = io();
+
 // var lolArr = ["Ame","Ane"];
 // var lollArr = ["bf","pjj"];
 // var loArr = ["Aere","Aznse"];
@@ -25,31 +28,26 @@ var exan;
 var gr;
 
 function setup() {
-    frameRate(20);
+    frameRate(5);
     for (var y = 0; y < n; y++) {
         matrix[y] = [];
         for (var x = 0; x < n; x++) {
-            matrix[y][x] = random([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 3, 3, 3, 4, 5, 6])
+            matrix[y][x] = random([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 3, 3, 3, 4, 5])
         }
     }
 
 
-//      matrix = [ 
-//         [0,0,0,0,0,0,0,0,0,0],
-//         [0,0,0,0,0,0,0,3,0,0],
-//         [0,0,2,0,0,2,3,3,0,0],
-//         [0,0,0,0,0,0,3,3,3,0],
-//         [0,0,0,0,0,3,3,3,3,0],
-//         [0,0,0,0,0,3,3,3,0,0],
-//         [0,0,2,0,0,0,0,0,0,0],
-//         [0,0,0,0,0,0,0,0,0,0],
-//         [0,0,0,0,0,0,0,0,0,0],
-//         [0,0,0,0,0,0,0,0,0,0]
+//     matrix = [ 
+//         [2,0,0,1,1],
+//         [2,0,0,1,1],
+//         [2,0,0,1,1],
+//         [0,0,0,1,1],
+//         [0,0,0,1,1]
 //    ]
 
     createCanvas(matrix[0].length * side, matrix.length * side);
     background('#acacac');
-    
+
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 1) {
@@ -76,8 +74,8 @@ function setup() {
                 bomberArr.push(br);
             }
             else if (matrix[y][x] == 6) {
-                var ar = new Amenaker(x, y, 6)
-                amenakerArr.push(ar);
+                var ar = new Dino(x, y)
+                dinoArr.push(ar);
             }
 
         }
@@ -85,7 +83,7 @@ function setup() {
 }
 
 function draw() {
-    
+
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 1) {
@@ -129,68 +127,107 @@ function draw() {
        
     }
     else if (exan == "ԳԱՐՈՒՆ"){
-        grassArr[i].mul(3);
+        grassArr[i].mul(1.5);
     }
     else if (exan == "ԱՄԱՌ"){
-        grassArr[i].mul(2);
+        grassArr[i].mul(2.5);
     }
     else if (exan == "ԱՇՈՒՆ"){
-        grassArr[i].mul(1);
+        grassArr[i].mul(3.5);
     }
 
         
     }
     
+
     for (var i in xotakerArr) {
-        xotakerArr[i].eat();
-        // xotakerArr[i].mu();
+        if (exan == "ՁՄԵՌ") {
+            xotakerArr[i].eat();
+            //փոփոխությունը class.eatgrass.js_ի մեջ )))            
+
+        }
+        else if (exan == "ԳԱՐՈՒՆ") {
+            xotakerArr[i].eat();
+            //փոփոխությունը class.eatgrass.js_ի մեջ )))
+        }
+        else if (exan == "ԱՄԱՌ") {
+            xotakerArr[i].eat();
+            //փոփոխությունը class.eatgrass.js_ի մեջ )))
+        }
+        else if (exan == "ԱՇՈՒՆ") {
+            xotakerArr[i].eat();
+            //փոփոխությունը class.eatgrass.js_ի մեջ )))
+        }
     }
 
 
     for (var i in gishatichArr) {
         gishatichArr[i].eat();
-        //gishatichArr[i].die();
-       // gishatichArr[i].move();
+        //փոփոխությունը class.predator.js_ի մեջ )))
     }
     for (var i in hunterArr) {
-        hunterArr[i].eat();
+        if (exan == "ՁՄԵՌ") {
+            hunterArr[i].move();
+        }
+        else {
+            hunterArr[i].eat();
+        }
+
     }
     for (var i in bomberArr) {
         if (exan == "ՁՄԵՌ") {
             //bomberArr[i].move();
+            //Ձմռանը բոմբեռը չի շարժվում
+
         }
-        else if (exan == "ԳԱՐՈՒՆ"){
+        else if (exan == "ԳԱՐՈՒՆ") {
             bomberArr[i].move();
         }
-        else if (exan == "ԱՄԱՌ"){
+        else if (exan == "ԱՄԱՌ") {
             bomberArr[i].move();
         }
-        else if (exan == "ԱՇՈՒՆ"){
+        else if (exan == "ԱՇՈՒՆ") {
             bomberArr[i].move();
         }
-        
+
     }
-    for (var i in amenakerArr) {
-        
-         if(exan == "ՁՄԵՌ") {
-            amenakerArr[i].eat();
+    for (var i in dinoArr) {
+
+        if (exan == "ՁՄԵՌ") {
+            dinoArr[i].eat();
+             
         }
 
-        else if (exan == "ԳԱՐՈՒՆ"){
-            amenakerArr[i].eat();
+        else if (exan == "ԳԱՐՈՒՆ") {
+            dinoArr[i].eat();
         }
 
-        else if (exan == "ԱՄԱՌ"){
-            //amenakerArr[i].eat();
+        else if (exan == "ԱՄԱՌ") {
+            dinoArr[i].eat();
         }
-        
-        else if (exan == "ԱՇՈՒՆ"){
-            amenakerArr[i].eat();
+
+        else if (exan == "ԱՇՈՒՆ") {
+            //dinoArr[i].eat();
+            //Դինո_ն աշնանը չի 
         }
     }
 
 
-//console.log("asdf")
+    //////////////////////////////////////      Statistika     //////////////////////////////////
+    if (exan == "ԱՇՈՒՆ") {
+        console.log("dasas");
+        var kadr = {
+            "xotakerneri qanaky-": xotakerArr.length,
+            "grassi qanaky-": grassArr.length
+
+        };
+        var myJSON = JSON.stringify(kadr);
+        function handleSubmit(evt) {
+            socket.emit("send statistics", myJSON);
+        }
+        handleSubmit();
+    }
+
 }
 function drawmatrix() {
     var p = document.getElementById("p");
@@ -205,21 +242,21 @@ function drawmatrix() {
 
 
                 if (matrix[y][x] == 1) {
-                    fill(" green");
+                    fill("white");
 
                 }
                 else if (matrix[y][x] == 0) {
-                    fill("#ffffff");
+                    fill("#acacac");
 
                 }
                 else if (matrix[y][x] == 2) {
                     fill("yellow");
                 }
                 else if (matrix[y][x] == 6) {
-                    fill("red");
+                    fill("pink");
                 }
                 else if (matrix[y][x] == 3) {
-                    fill("brown");
+                    fill("red");
                 }
 
                 else if (matrix[y][x] == 4) {
@@ -237,27 +274,25 @@ function drawmatrix() {
             else if (frameCount % 40 > 10 && frameCount % 40 <= 20) {
                 //garun
                 if (matrix[y][x] == 1) {
-                    fill("green");
+                    fill("#ACFF33");
 
                 }
                 else if (matrix[y][x] == 0) {
-                    fill("#99ff99");
+                    fill("#acacac");
 
                 }
                 else if (matrix[y][x] == 2) {
-
                     fill("yellow");
-
                 }
                 else if (matrix[y][x] == 6) {
-                    fill("red");
+                    fill("pink");
                 }
                 else if (matrix[y][x] == 3) {
-                    fill("#802b00");
+                    fill("red");
                 }
 
                 else if (matrix[y][x] == 4) {
-                    fill("black");
+                    fill("blue");
                 }
                 else if (matrix[y][x] == 5) {
                     fill("#FF8300");
@@ -271,27 +306,25 @@ function drawmatrix() {
             else if (frameCount % 40 > 20 && frameCount % 40 <= 30) {
                 //amar
                 if (matrix[y][x] == 1) {
-                    fill("#99ff33");
-
-                }
-                else if (matrix[y][x] == 0) {
                     fill("green");
 
                 }
+                else if (matrix[y][x] == 0) {
+                    fill("#acacac");
+
+                }
                 else if (matrix[y][x] == 2) {
-
                     fill("yellow");
-
                 }
                 else if (matrix[y][x] == 6) {
-                    fill("red");
+                    fill("pink");
                 }
                 else if (matrix[y][x] == 3) {
-                    fill("#802b00");
+                    fill("red");
                 }
 
                 else if (matrix[y][x] == 4) {
-                    fill("black");
+                    fill("blue");
                 }
                 else if (matrix[y][x] == 5) {
                     fill("#FF8300");
@@ -306,30 +339,28 @@ function drawmatrix() {
 
                 //ashun
                 if (matrix[y][x] == 1) {
-                    fill("#e65c00");
+                    fill("#FF4A06");
 
                 }
                 else if (matrix[y][x] == 0) {
-                    fill("#ff9900");
+                    fill("#acacac");
 
                 }
                 else if (matrix[y][x] == 2) {
-
-                    fill("#FFEFDB");
-
+                    fill("yellow");
                 }
                 else if (matrix[y][x] == 6) {
-                    fill("red");
+                    fill("pink");
                 }
                 else if (matrix[y][x] == 3) {
-                    fill("#ffdbdb");
+                    fill("red");
                 }
 
                 else if (matrix[y][x] == 4) {
-                    fill("black");
+                    fill("blue");
                 }
                 else if (matrix[y][x] == 5) {
-                    fill("#331A00");
+                    fill("#FF8300");
                 }
                 exan = "ԱՇՈՒՆ";
                 p.innerText = "ԱՇՈՒՆ";
@@ -337,7 +368,7 @@ function drawmatrix() {
                 rect(x * side, y * side, side, side);
 
             }
-            else{
+            else {
                 //console.log(frameCount)
             }
         }

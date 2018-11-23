@@ -8,7 +8,7 @@ class Hunter extends Base {
 
 
     }
-    mull() {
+    huntermove() {
         var emptyCells = this.chooseCell(0);
         var newCell = random(emptyCells);
 
@@ -68,25 +68,25 @@ class Hunter extends Base {
 
 
 
-        // var emptyCells = this.chooseCell(0);
-        // var newCell = random(emptyCells);
+        var emptyCells = this.chooseCell(0);
+        var newCell = random(emptyCells);
 
-        // //console.log(emptyCells);
-        // if (newCell) {
-        //     var newX = newCell[0];
-        //     var newY = newCell[1];
-        //     matrix[this.y][this.x] = 0;
-        //     matrix[newY][newX] = this.index;
-        //     this.x = newX;
-        //     this.y = newY;
+        //console.log(emptyCells);
+        if (newCell) {
+            var newX = newCell[0];
+            var newY = newCell[1];
+            matrix[this.y][this.x] = 0;
+            matrix[newY][newX] = this.index;
+            this.x = newX;
+            this.y = newY;
 
-        // }
-        // // this.energ++;
-        // if (this.energ <= 0) {
-        //     this.die();
-        //     this.mull();
+        }
+        // this.energ++;
+        if (this.energ <= 0) {
+            this.die();
+            this.huntermove();
 
-        // }
+        }
 
     }
     die() {
@@ -100,7 +100,7 @@ class Hunter extends Base {
             }
         }
 
-        // this.mull();
+        // this.huntermove();
     }
 
     eat() {
@@ -113,8 +113,7 @@ class Hunter extends Base {
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
-            var oldX = this.x;
-            var oldY = this.y;
+           
 
             matrix[this.y][this.x] = 0;
             matrix[newY][newX] = this.index;
@@ -135,12 +134,11 @@ class Hunter extends Base {
             this.energ--;
             //console.log(this.energ);
             if (this.energ <= 0) {
-                this.mull();
+                this.huntermove();
             }
+            
         }
-        else {
-            this.move();
-        }
+       
     }
 
 }

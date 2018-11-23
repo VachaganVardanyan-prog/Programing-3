@@ -7,24 +7,12 @@ class Bomber extends Base {
     }
 
     mul() {
-        // var emptyCells = this.chooseCell(0);
-        // var newCell = random(emptyCells);
-
-        // //console.log(emptyCells);
-        // if (newCell) {
-        //     var newX = newCell[0];
-        //     var newY = newCell[1];
-        //     matrix[newY][newX] = this.index;
-
-        //     var newXotaker = new Xotaker(newX, newY, this.index);
-        //     xotakerArr.push(newXotaker);
-        //     this.energ = 6;
-        // }
+     
     }
 
 
-    chooseCell(character, character1, character2, character3, character4) {
-        this.getNewCoordinates();
+    chooseCellmul(character, character1, character2, character3, character4) {
+        this.getNewCoordinates1();
         var found = [];
         for (var i in this.directions) {
             var x = this.directions[i][0];
@@ -78,7 +66,7 @@ class Bomber extends Base {
     eat() {
 
 
-        var emptyCells = this.chooseCell(0, 1, 2, 3, 5);
+        var emptyCells = this.chooseCellmul(0, 1, 2, 3, 5);
 
 
         //console.log(emptyCells);

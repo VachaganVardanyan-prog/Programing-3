@@ -1,5 +1,6 @@
 class Base {
     constructor(x, y, index) {
+        this.gender = Math.round(Math.random())
         this.x = x;
         this.y = y;
         this.index = index;
@@ -28,6 +29,41 @@ class Base {
         ];
     }
 
+    getNewCoordinates1() {
+        this.directions = [
+            [this.x - 1, this.y - 1],
+            [this.x, this.y - 1],
+            [this.x + 1, this.y - 1],
+            [this.x - 1, this.y],
+            [this.x + 1, this.y],
+            [this.x - 1, this.y + 1],
+            [this.x, this.y + 1],
+            [this.x + 1, this.y + 1],
+
+            [this.x - 1, this.y - 2],
+            [this.x, this.y - 2],
+            [this.x + 1, this.y - 2],
+            [this.x + 2, this.y - 2],
+            [this.x + 2, this.y - 1],
+            [this.x + 2, this.y],
+            [this.x + 2, this.y + 1],
+            [this.x + 2, this.y + 2],
+            [this.x + 1, this.y + 2],
+            [this.x, this.y + 2],
+            [this.x - 1, this.y + 2],
+            [this.x - 2, this.y + 2],
+            [this.x - 2, this.y + 1],
+            [this.x - 2, this.y],
+            [this.x - 2, this.y - 1],
+            [this.x - 2, this.y - 2]
+
+
+
+
+        ];
+    }
+  
+
     chooseCell(character) {
         this.getNewCoordinates()
         var found = [];
@@ -42,20 +78,34 @@ class Base {
         }
         return found;
     }
-    chooseCellmul(arr) {
-        this.getNewCoordinates()
+    chooseCellmul(character, character1, character2, character3, character4) {
+        this.getNewCoordinates();
         var found = [];
-        var a = arr;
         for (var i in this.directions) {
             var x = this.directions[i][0];
             var y = this.directions[i][1];
             if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                for (var i = 0; i < a.length; i++) {
-                    if (matrix[y][x] == a[i]) {
-                        found.push([x, y]);
-                    }
+                if (matrix[y][x] == character || matrix[y][x] == character1 || matrix[y][x] == character2 || matrix[y][x] == character3 || matrix[y][x] == character4) {
+                    found.push(this.directions[i]);
                 }
             }
+
+        }
+        return found;
+    }
+
+    chooseCelldino(character, character1) {
+        this.getNewCoordinates();
+        var found = [];
+        for (var i in this.directions) {
+            var x = this.directions[i][0];
+            var y = this.directions[i][1];
+            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
+                if (matrix[y][x] == character || matrix[y][x] == character1) {
+                    found.push(this.directions[i]);
+                }
+            }
+
         }
         return found;
     }
