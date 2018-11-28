@@ -23,6 +23,9 @@ class Dino extends Base {
             this.energy--;
 
         }
+        else{
+            this.energy--;
+        }
 
     }
 
@@ -75,6 +78,16 @@ class Dino extends Base {
         }
 
     }
+
+    // die() {
+    //     for (var i in gishatichArr) {
+    //         if (this.x == gishatichArr[i].x && this.y == gishatichArr[i].y) {
+    //             matrix[this.y][this.x] = 0;
+    //             gishatichArr.splice(i, 1);
+    //             break;
+    //         }
+    //     }
+    // }
 
 
 

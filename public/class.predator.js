@@ -1,7 +1,7 @@
 class Gishatich extends Base {
     constructor(x, y, index) {
         super(x, y, index);
-        this.energy = 7;
+        this.energy = 8;
 
 
     }
@@ -28,19 +28,6 @@ class Gishatich extends Base {
         }
     }
     mul() {
-        // var emptyCells = this.chooseCell(0);
-        // var newCell = random(emptyCells);
-
-        // // console.log(emptyCells);
-        // if (newCell) {
-        //     var newX = newCell[0];
-        //     var newY = newCell[1];
-        //     matrix[newY][newX] = this.index;
-
-        //     var newGishatich = new Gishatich(newX, newY, this.index);
-        //     gishatichArr.push(newGishatich);
-        //     this.energy = 0;
-        // }
 
         if (this.gender == 0) {
             var g = 1
@@ -48,25 +35,32 @@ class Gishatich extends Base {
         else {
             var g = 0
         }
-        var emptyCells = this.chooseCell(1);
-        for (var i in emptyCells) {
-            if (emptyCells[i].gender == g) {
-                var bapo = [];
-                bapo.push(emptyCells[i])
-                for (var o in bapo) {
-                    if (bapo[o].energy == m) {
-                        var emptyCells = this.chooseCell(0);
-                        var newCell = random(emptyCells);
+        var empty = this.chooseCell(3);
+        for (var i in empty) {
+            for (var l in gishatichArr) {
+                if (gishatichArr[l].y == empty[i][1] && gishatichArr[l].x == empty[i][0]) {
 
-                        // console.log(emptyCells);
-                        if (newCell) {
-                            var newX = newCell[0];
-                            var newY = newCell[1];
-                            matrix[newY][newX] = this.index;
-                
-                            var gishatichArr = new Gishatich(newX, newY, this.index);
-                            gishatichArr.push(gishatichArr);
-                            this.energ = 0;
+                    if (gishatichArr[l].gender == g) {
+
+                        var gax = []
+                        gax.push(gishatichArr[l])
+                        for (var k in gax) {
+                            if (gax[k].energy >= 10) {
+                                //console.log(55);
+                                var emptyCells = this.chooseCell(0);
+                                var newCell = random(emptyCells);
+
+                                // console.log(emptyCells);
+                                if (newCell) {
+                                    var newX = newCell[0];
+                                    var newY = newCell[1];
+                                    matrix[newY][newX] = this.index;
+
+                                    var gt = new Gishatich(newX, newY, this.index);
+                                    gishatichArr.push(gt);
+                                    this.energy = 6;
+                                }
+                            }
                         }
                     }
                 }
@@ -77,16 +71,16 @@ class Gishatich extends Base {
         if (exan == "ՁՄԵՌ") {
             var mp1 = 8;
         }
-        if(exan == "ԳԱՐՈՒՆ"){
-            var  mp1 = 2;
-      
-      }
-      else if(exan == "ԱՄԱՌ") {
-        var mp1 = 5;
-     }
-     else if (exan == "ԱՇՈՒՆ"){
-        var mp1 = 7;
-    }
+        if (exan == "ԳԱՐՈՒՆ") {
+            var mp1 = 2;
+
+        }
+        else if (exan == "ԱՄԱՌ") {
+            var mp1 = 5;
+        }
+        else if (exan == "ԱՇՈՒՆ") {
+            var mp1 = 7;
+        }
         this.getNewCoordinates();
         var gishatichCells = this.chooseCell(2);
         var newCell = random(gishatichCells);
@@ -104,7 +98,7 @@ class Gishatich extends Base {
                     break;
                 }
             }
-            
+
 
             this.energy++;
         }
@@ -120,7 +114,7 @@ class Gishatich extends Base {
         }
         // console.log(this.energy);
     }
-    die() {
+     die() {
         for (var i in gishatichArr) {
             if (this.x == gishatichArr[i].x && this.y == gishatichArr[i].y) {
                 matrix[this.y][this.x] = 0;

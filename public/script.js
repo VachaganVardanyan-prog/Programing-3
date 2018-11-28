@@ -10,16 +10,27 @@ var matrix = [
 ];
 
 var side = 15;
-var n = 60;
+var n = 40;
 var grassArr = [];
 var xotakerArr = [];
 var gishatichArr = [];
 var hunterArr = [];
 var bomberArr = [];
 var dinoArr = [];
-var amenakerArr = [];
 var exan;
-var socket = io();
+var kadr = {
+    "xotakeriqanak": 0,
+    "xotiqanaky": 0,
+    "gishatichiqanak" : 0,
+    "vorsordiqanak" : 0,
+    "dinoiqanak" : 0,
+    "bomberiqanak" : 0
+
+
+};
+
+var socket = io.connect('http://localhost:3000');
+
 
 // var lolArr = ["Ame","Ane"];
 // var lollArr = ["bf","pjj"];
@@ -28,23 +39,23 @@ var socket = io();
 var gr;
 
 function setup() {
-    frameRate(5);
+    frameRate(20);
     for (var y = 0; y < n; y++) {
         matrix[y] = [];
         for (var x = 0; x < n; x++) {
-            matrix[y][x] = random([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 3, 3, 3, 4, 5])
+            matrix[y][x] = random([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 3, 3, 3, 4, 5,6])
         }
     }
-
-
-//     matrix = [ 
-//         [2,0,0,1,1],
-//         [2,0,0,1,1],
-//         [2,0,0,1,1],
-//         [0,0,0,1,1],
-//         [0,0,0,1,1]
+//   matrix = [ 
+//         [1,2,3,5,6],
+//         [1,2,3,5,6],
+//         [1,2,3,5,6],
+//         [1,2,3,5,6],
+//         [1,2,3,5,6]
 //    ]
+   
 
+   
     createCanvas(matrix[0].length * side, matrix.length * side);
     background('#acacac');
 
@@ -174,6 +185,7 @@ function draw() {
         }
 
     }
+    
     for (var i in bomberArr) {
         if (exan == "ՁՄԵՌ") {
             //bomberArr[i].move();
@@ -191,6 +203,7 @@ function draw() {
         }
 
     }
+    
     for (var i in dinoArr) {
 
         if (exan == "ՁՄԵՌ") {
@@ -211,22 +224,65 @@ function draw() {
             //Դինո_ն աշնանը չի 
         }
     }
+    
 
 
     //////////////////////////////////////      Statistika     //////////////////////////////////
     if (exan == "ԱՇՈՒՆ") {
-        console.log("dasas");
-        var kadr = {
-            "xotakerneri qanaky-": xotakerArr.length,
-            "grassi qanaky-": grassArr.length
+       //    console.log("dasas");
+       
+       function changeView(stat) {
+        var c = document.getElementById("xotakeriqanak");
+        var k = document.getElementById("xotiqanaky");
+        var g = document.getElementById("gishatichiqanak");
+        var v = document.getElementById("vorsordiqanak");
+        var d = document.getElementById("dinoiqanak");
+        var b = document.getElementById("bomberiqanak");
+        c.innerHTML = stat.xotakeriqanak;
+        k.innerHTML = stat.xotiqanaky;
+        g.innerHTML = stat.gishatichiqanak;
+        v.innerHTML = stat.vorsordiqanak;
+        d.innerHTML = stat.dinoiqanak;
+        b.innerHTML = stat.bomberiqanak;
+    }
 
-        };
-        var myJSON = JSON.stringify(kadr);
         function handleSubmit(evt) {
-            socket.emit("send statistics", myJSON);
+            kadr.xotakeriqanak = xotakerArr.length;
+            kadr.xotiqanaky = grassArr.length;
+            kadr.gishatichiqanak = gishatichArr.length;
+            kadr.vorsordiqanak = hunterArr.length;
+            kadr.dinoiqanak = dinoArr.length;
+            kadr.bomberiqanak = bomberArr.length;
+            changeView(kadr);
+            socket.emit("send data", kadr);
+           
         }
+        console.log(kadr.xotakeriqanak);
+        // function sendst(){
+        //     socket.emit("send st",kadr);
+        // }
+       // sendst();
         handleSubmit();
     }
+    
+
+}
+
+
+
+function mouseClicked() {
+    console.log("asdfadsf")
+    
+    var x = mouseX;
+    var y = mouseY;
+    var nx = Math.floor(x/side);
+    var ny = Math.floor(y/side);
+    console.log(nx + ":" + ny);
+    if(exan !="Ձմեռ"){
+        var br = new Bomber(nx, ny, 4)
+        bomberArr.push(br);
+    }
+    
 
 }
 function drawmatrix() {
@@ -292,7 +348,7 @@ function drawmatrix() {
                 }
 
                 else if (matrix[y][x] == 4) {
-                    fill("blue");
+                    fill("black");
                 }
                 else if (matrix[y][x] == 5) {
                     fill("#FF8300");
@@ -324,7 +380,7 @@ function drawmatrix() {
                 }
 
                 else if (matrix[y][x] == 4) {
-                    fill("blue");
+                    fill("black");
                 }
                 else if (matrix[y][x] == 5) {
                     fill("#FF8300");
@@ -357,7 +413,7 @@ function drawmatrix() {
                 }
 
                 else if (matrix[y][x] == 4) {
-                    fill("blue");
+                    fill("black");
                 }
                 else if (matrix[y][x] == 5) {
                     fill("#FF8300");
